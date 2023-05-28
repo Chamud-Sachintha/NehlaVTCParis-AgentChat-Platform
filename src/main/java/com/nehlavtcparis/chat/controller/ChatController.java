@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -14,6 +15,7 @@ public class ChatController {
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/private-message")
+    @Scheduled(fixedDelay = 1000)
     public Message recievePrivateMessage(@Payload Message message) {
         this.simpMessagingTemplate.convertAndSendToUser(message.getRecieverName(), "/private", message);
         return message;

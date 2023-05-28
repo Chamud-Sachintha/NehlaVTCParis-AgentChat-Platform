@@ -1,10 +1,13 @@
 package com.nehlavtcparis.chat.controller;
 
 import com.nehlavtcparis.chat.models.Agent;
+import com.nehlavtcparis.chat.models.ConnectedAgent;
 import com.nehlavtcparis.chat.models.Response;
 import com.nehlavtcparis.chat.service.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -25,6 +28,36 @@ public class AgentController {
         } else {
             userResponse = this.agentService.handleUserReponseEntity(0, "Invalid Data.");
         }
+
+        return userResponse;
+    }
+
+    @PostMapping("/connectedAgents")
+    public Response getConnectedAgentList(@RequestBody ConnectedAgent agentDetails) {
+        Response userResponse = null;
+        boolean result = false;
+
+        if (agentDetails != null) {
+            result = this.agentService.storeConnectedAgents(agentDetails);
+
+            if (result) {
+                userResponse = this.agentService.handleUserReponseEntity(1, "Operation Complete");
+            } else {
+                userResponse = this.agentService.handleUserReponseEntity(1, "Operation In Complete");
+            }
+        } else {
+            userResponse = this.agentService.handleUserReponseEntity(0, "Invalid Data.");
+        }
+
+        return  userResponse;
+    }
+
+    @GetMapping("/getAgentList")
+    public Response getConnectedAgentList() {
+        Response userResponse = null;
+
+        List<ConnectedAgent> connectedAgents = this.agentService.agentList;
+        userResponse = this.agentService.handleUserReponseEntity(1, "Operation Complete", connectedAgents);
 
         return userResponse;
     }
