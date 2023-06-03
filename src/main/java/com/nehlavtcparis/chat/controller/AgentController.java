@@ -52,7 +52,6 @@ public class AgentController {
         return  userResponse;
     }
 
-    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping("/getAgentList")
     public Response getConnectedAgentList() {
         Response userResponse = null;
