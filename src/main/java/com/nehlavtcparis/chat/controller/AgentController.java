@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:8100", maxAge = 3600)
 @RequestMapping("/agent")
 public class AgentController {
 
@@ -52,6 +52,7 @@ public class AgentController {
         return  userResponse;
     }
 
+    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping("/getAgentList")
     public Response getConnectedAgentList() {
         Response userResponse = null;

@@ -27,7 +27,8 @@ public class AgentService {
         boolean response = false;
 
         try {
-            if (agentDetails != null) {
+
+            if ((!this.validateUsernameExist(agentDetails)) && agentDetails != null) {
                 this.agentList.add(agentDetails);
             }
 
@@ -37,6 +38,21 @@ public class AgentService {
         }
 
         return response;
+    }
+
+    private boolean validateUsernameExist(ConnectedAgent agentDetails) {
+
+        boolean isExist = false;
+
+        for (ConnectedAgent connectedAgent : this.agentList) {
+
+            if (connectedAgent.getAgentName().equalsIgnoreCase(agentDetails.getAgentName())) {
+                isExist = true;
+                break;
+            }
+        }
+
+        return isExist;
     }
 
     public Response handleUserReponseEntity(int statusCode, String message, Object ...data) {
