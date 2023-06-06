@@ -6,7 +6,7 @@ COPY . .
 #
 # Package stage
 #
-FROM openjdk:11-jdk-slim
+FROM openjdk:11
 COPY --from=build /target/chat-0.0.1-SNAPSHOT.jar demo.jar
 # ENV PORT=8080
 EXPOSE 8080
